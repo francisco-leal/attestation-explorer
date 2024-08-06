@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { AuthenticationProvider } from "@/providers/authentication";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
+import { Box } from "@mui/joy";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +30,20 @@ export default function RootLayout({
           <CssVarsProvider>
             <CssBaseline />
             <body className={inter.className}>
-              {children}
+              <Box
+                component="main"
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 2,
+                }}
+              >
+                {children}
+              </Box>
               <Toaster />
             </body>
           </CssVarsProvider>
