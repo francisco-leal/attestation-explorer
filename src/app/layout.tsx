@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import OnchainProviders from "@/providers";
+import OnchainProviders from "@/providers/web3-modal-provider";
 import { cookieToInitialState } from "wagmi";
 import { config } from "@/config";
 import { headers } from "next/headers";
+import { Toaster } from "sonner";
+import { AuthenticationProvider } from "@/providers/authentication";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <OnchainProviders initialState={initialState}>
-        <body className={inter.className}>{children}</body>
+        <AuthenticationProvider>
+          <body className={inter.className}>
+            {children}
+            <Toaster />
+          </body>
+        </AuthenticationProvider>
       </OnchainProviders>
     </html>
   );
