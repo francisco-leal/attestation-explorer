@@ -1,28 +1,37 @@
+// context/index.tsx
+
 "use client";
-import { OnchainKitProvider } from "@coinbase/onchainkit";
+
+import React, { ReactNode } from "react";
+import { config, projectId } from "@/config";
+
+import { createWeb3Modal } from "@web3modal/wagmi/react";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { ReactNode } from "react";
-import { base } from "viem/chains";
-import { WagmiProvider } from "wagmi";
-import { config } from "@/config";
 
-type Props = { children: ReactNode };
+import { State, WagmiProvider } from "wagmi";
 
+// Setup queryClient
 const queryClient = new QueryClient();
 
-function OnchainProviders({ children }: Props) {
+if (!projectId) throw new Error("Project ID is not defined");
+
+// Create modal
+createWeb3Modal({
+  wagmiConfig: config,
+  projectId,
+});
+
+export default function Web3ModalProvider({
+  children,
+  initialState,
+}: {
+  children: ReactNode;
+  initialState?: State;
+}) {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <OnchainKitProvider
-          apiKey={process.env.NEXT_PUBLIC_ONCHAIN_KIT_API_KEY}
-          chain={base}
-        >
-          {children}
-        </OnchainKitProvider>
-      </QueryClientProvider>
+    <WagmiProvider config={config} initialState={initialState}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
 }
-
-export default OnchainProviders;

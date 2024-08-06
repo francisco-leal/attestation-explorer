@@ -1,5 +1,8 @@
-import Wallet from "@/components/wallet";
-
 export default function Home() {
-  return <Wallet />;
+  return (
+    <main>
+      <h1>Attestation Explorer</h1>
+      <w3m-button />
+    </main>
+  );
 }
