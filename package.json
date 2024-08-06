@@ -7,12 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seedSearch": "node src/scripts/seedSearch.ts"
+    "seedSearch": "node src/scripts/seedSearch.js"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.51.21",
     "@web3modal/wagmi": "^5.0.11",
     "algoliasearch": "^4.24.0",
+    "dotenv": "^16.4.5",
     "ethers": "^5.6",
     "iron-session": "^8.0.2",
     "next": "14.2.5",
@@ -24,11 +25,12 @@
     "wagmi": "^2.12.2"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22.1.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }
