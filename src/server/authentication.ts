@@ -66,6 +66,5 @@ export const connectUser = async ({
 };
 
 export const disconnectUser = async () => {
-  console.log("deleting cookies");
-  cookies().delete("auth_session");
+  await cookies().delete("auth_session");
 };
