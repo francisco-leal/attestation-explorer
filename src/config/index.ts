@@ -2,7 +2,9 @@ import { baseSepolia } from "wagmi/chains";
 import { cookieStorage, createStorage, http } from "wagmi";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
-export const projectId = "3f88eba84aae97b2105416856a9d164c";
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID!;
+if (!projectId) throw new Error("Project ID is not defined");
+
 const metadata = {
   name: "attestation-explorer",
   description: "Attestation Explorer",
