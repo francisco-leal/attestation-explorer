@@ -5,12 +5,8 @@ import { SiweMessage } from "siwe";
 import { toast } from "sonner";
 import { base } from "viem/chains";
 import { useAccount, useDisconnect, useSignMessage } from "wagmi";
-import { getCurrentUser } from "@/shared/server/users";
-import {
-  connectUser,
-  disconnectUser,
-  getNonce,
-} from "@/shared/server/authentication";
+import { getCurrentUser } from "@/server/users";
+import { connectUser, disconnectUser, getNonce } from "@/server/authentication";
 
 export const AuthenticationProvider: FunctionComponent<PropsWithChildren> = ({
   children,
@@ -30,7 +26,7 @@ export const AuthenticationProvider: FunctionComponent<PropsWithChildren> = ({
     const message = new SiweMessage({
       domain: window.location.host,
       uri: window.location.origin,
-      statement: "Sign in with Ethereum to the app.",
+      statement: "Sign in with Ethereum.",
       version: "1",
       address,
       nonce,
