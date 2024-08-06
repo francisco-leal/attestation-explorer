@@ -6,6 +6,8 @@ import { config } from "@/config";
 import { headers } from "next/headers";
 import { Toaster } from "sonner";
 import { AuthenticationProvider } from "@/providers/authentication";
+import { CssVarsProvider } from "@mui/joy/styles";
+import CssBaseline from "@mui/joy/CssBaseline";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,10 +26,13 @@ export default function RootLayout({
     <html lang="en">
       <OnchainProviders initialState={initialState}>
         <AuthenticationProvider>
-          <body className={inter.className}>
-            {children}
-            <Toaster />
-          </body>
+          <CssVarsProvider>
+            <CssBaseline />
+            <body className={inter.className}>
+              {children}
+              <Toaster />
+            </body>
+          </CssVarsProvider>
         </AuthenticationProvider>
       </OnchainProviders>
     </html>

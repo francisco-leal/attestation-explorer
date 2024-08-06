@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { sealData } from "iron-session";
 import { SiweMessage, generateNonce } from "siwe";
 import { SessionUser } from "./users";
+import { getTalentPassport } from "./talent-protocol";
 
 const sessionPassword = process.env.SESSION_PASSWORD as string;
 if (!sessionPassword) throw new Error("SESSION_PASSWORD is not set");
@@ -32,8 +33,15 @@ export const connectUser = async ({
 
   if (error) throw new Error("Error verifying message");
 
+  const passport = await getTalentPassport(address.toLowerCase());
+
   const sessionUser: SessionUser = {
     wallet: address,
+    passportId: passport?.passport_id,
+    profile: {
+      image_url: passport?.user?.profile_picture_url,
+      name: passport?.user?.display_name || passport?.user?.name || address,
+    },
     siwe: {
       address: siweMessage.address,
       nonce: siweMessage.nonce,
@@ -41,6 +49,8 @@ export const connectUser = async ({
       expirationTime: siweMessage.expirationTime,
     },
   };
+
+  console.log(sessionUser);
 
   const encryptedSession = await sealData(JSON.stringify(sessionUser), {
     password: sessionPassword,
@@ -56,5 +66,6 @@ export const connectUser = async ({
 };
 
 export const disconnectUser = async () => {
+  console.log("deleting cookies");
   cookies().delete("auth_session");
 };
