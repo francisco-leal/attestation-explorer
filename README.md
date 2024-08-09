@@ -1,3 +1,30 @@
+# Backend - Smart Contracts
+
+This project requires some smart contracts to be deployed on chain.
+
+## Development
+
+### First in `hardhat` folder
+
+- Start `hardhat` node
+
+```shell
+hardhat $ npx hardhat node
+...
+```
+
+- On another shell deploy the EAS contracts locally
+
+```shell
+hardhat $ npx hardhat run scripts/deployEasContracts.ts
+...
+```
+
+This will generate the file `hardhat/deployed/contracts/easContractAddresses.json` with the contract addresses
+for the `EAS` and the `SchemaRegistry` contracts.
+
+# Frontend
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
