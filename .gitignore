@@ -37,16 +37,19 @@ yarn-error.log*
 next-env.d.ts
 
 # Hardhat files
-/cache
-/artifacts
+hardhat/cache
+hardhat/artifacts
 
 # TypeChain files
-/typechain
-/typechain-types
+hardhat/typechain
+hardhat/typechain-types
 
 # solidity-coverage files
-/coverage
-/coverage.json
+hardhat/coverage
+hardhat/coverage.json
 
 # Hardhat Ignition default folder for deployments against a local node
-ignition/deployments
+hardhat/ignition/deployments
+
+# development deployed contracts
+hardhat/deployed/contracts/*.json
