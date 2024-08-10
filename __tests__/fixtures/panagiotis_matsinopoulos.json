@@ -1,0 +1,62 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "https://passport.talentprotocol.com/passports/0x324e9E13dd19528D0F390201923d17c4B7E94462",
+  "type": ["VerifiableCredential", "TalentProtocolPassportCredential"],
+  "name": "Panagiotis Matsinopoulos Talent Protocol Credentials",
+  "description": "A verification of Talent Protocol Credentials issued by Talent Protocol to Panagiotis Matsinopoulos",
+  "issuer": {
+    "id": "https://passport.talentprotocol.com/credentials/issuers/talentprotocol.eth",
+    "name": "Talent Protocol"
+  },
+  "credentialSubject": {
+    "id": "https://etherscan.io/address/0x324e9e13dd19528d0f390201923d17c4b7e94462",
+    "name": "Panagiotis Matsinopoulos",
+    "ens": {
+      "id": "https://passport.talentprotocol.com/credentials/02f9d83f-32b9-4782-83f1-bed7f863c5fc",
+      "name": "PassportCredentials::Ens",
+      "category": "Identity",
+      "validFrom": "2024-04-14T07:12:35Z",
+      "validUntil": null,
+      "score": 5,
+      "data": "{\"primary_domain\":\"panagiotismatsinopoulos.eth\",\"domains\":[\"panagiotismatsinopoulos.eth\"]}"
+    },
+    "takeOff": {
+      "id": "https://passport.talentprotocol.com/credentials/5adf0e4a-f10f-4168-ba75-cfce78cb9967",
+      "name": "PassportCredentials::TakeOff",
+      "category": "Skills",
+      "validFrom": "2024-08-07T12:34:36Z",
+      "validUntil": null,
+      "score": 9,
+      "data": "{\"edition\":\"#12 Brussels Edition\"}"
+    }
+  },
+  "validFrom": "2024-08-01T00:00:00Z",
+  "validUntil": null,
+  "status": [
+    {
+      "type": "TalentProtocolCredentialStatus",
+      "credentialSubject": {
+        "id": "https://passport.talentprotocol.com/credentials/02f9d83f-32b9-4782-83f1-bed7f863c5fc"
+      },
+      "revoked": false
+    },
+    {
+      "type": "TalentProtocolCredentialStatus",
+      "credentialSubject": {
+        "id": "https://passport.talentprotocol.com/credentials/5adf0e4a-f10f-4168-ba75-cfce78cb9967"
+      },
+      "revoked": false
+    }
+  ],
+  "credentialSchema": {
+    "id": "https://passport.talentprotocol.com/schemas/TalentProtocolCredential.json",
+    "type": "JsonSchema"
+  },
+  "termsOfUse": {
+    "id": "https://passport.talentprotocol.com/credentials/terms_of_use",
+    "type": "IssuerPolicy"
+  }
+}
