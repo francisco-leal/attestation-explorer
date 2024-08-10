@@ -1,0 +1,113 @@
+[
+  {
+    "name": "id",
+    "value": "https://passport.talentprotocol.com/passports/0x324e9E13dd19528D0F390201923d17c4B7E94462",
+    "type": "string"
+  },
+  {
+    "name": "type",
+    "value": ["VerifiableCredential", "TalentProtocolPassportCredential"],
+    "type": "string[]"
+  },
+  {
+    "name": "name",
+    "value": "Panagiotis Matsinopoulos Talent Protocol Credentials",
+    "type": "string"
+  },
+  {
+    "name": "description",
+    "value": "A verification of Talent Protocol Credentials issued by Talent Protocol to Panagiotis Matsinopoulos",
+    "type": "string"
+  },
+  {
+    "name": "credentialSubjectId",
+    "value": "https://etherscan.io/address/0x324e9e13dd19528d0f390201923d17c4b7e94462",
+    "type": "string"
+  },
+  {
+    "name": "credentialSubjectName",
+    "value": "Panagiotis Matsinopoulos",
+    "type": "string"
+  },
+  {
+    "name": "credentialSubjectTypes",
+    "value": ["ens", "takeOff"],
+    "type": "string[]"
+  },
+  {
+    "name": "credentialSubjectTypesIds",
+    "value": [
+      "https://passport.talentprotocol.com/credentials/02f9d83f-32b9-4782-83f1-bed7f863c5fc",
+      "https://passport.talentprotocol.com/credentials/5adf0e4a-f10f-4168-ba75-cfce78cb9967"
+    ],
+    "type": "string[]"
+  },
+  {
+    "name": "credentialSubjectTypesNames",
+    "value": ["PassportCredentials::Ens", "PassportCredentials::TakeOff"],
+    "type": "string[]"
+  },
+  {
+    "name": "credentialSubjectTypesCategories",
+    "value": ["Identity", "Skills"],
+    "type": "string[]"
+  },
+  {
+    "name": "credentialSubjectTypesValidFroms",
+    "value": ["2024-04-14T07:12:35Z", "2024-08-07T12:34:36Z"],
+    "type": "string[]"
+  },
+  {
+    "name": "credentialSubjectTypesValidUntils",
+    "value": ["", ""],
+    "type": "string[]"
+  },
+  {
+    "name": "credentialSubjectTypesScores",
+    "value": [5, 9],
+    "type": "uint16[]"
+  },
+  {
+    "name": "credentialSubjectTypesData",
+    "value": [
+      "{\"primary_domain\":\"panagiotismatsinopoulos.eth\",\"domains\":[\"panagiotismatsinopoulos.eth\"]}",
+      "{\"edition\":\"#12 Brussels Edition\"}"
+    ],
+    "type": "string[]"
+  },
+  { "name": "validFrom", "value": "2024-08-01T00:00:00Z", "type": "string" },
+  { "name": "validUntil", "value": "", "type": "string" },
+  {
+    "name": "statusesTypes",
+    "value": [
+      "TalentProtocolCredentialStatus",
+      "TalentProtocolCredentialStatus"
+    ],
+    "type": "string[]"
+  },
+  {
+    "name": "statusesCredentialSubjectIds",
+    "value": [
+      "https://passport.talentprotocol.com/credentials/02f9d83f-32b9-4782-83f1-bed7f863c5fc",
+      "https://passport.talentprotocol.com/credentials/5adf0e4a-f10f-4168-ba75-cfce78cb9967"
+    ],
+    "type": "string[]"
+  },
+  {
+    "name": "statusesCredentialSubjectRevoked",
+    "value": [false, false],
+    "type": "bool[]"
+  },
+  {
+    "name": "credentialSchemaId",
+    "value": "https://passport.talentprotocol.com/schemas/TalentProtocolCredential.json",
+    "type": "string"
+  },
+  { "name": "credentialSchemaType", "value": "JsonSchema", "type": "string" },
+  {
+    "name": "termsOfUseId",
+    "value": "https://passport.talentprotocol.com/credentials/terms_of_use",
+    "type": "string"
+  },
+  { "name": "termsOfUseType", "value": "IssuerPolicy", "type": "string" }
+]
