@@ -53,3 +53,6 @@ hardhat/ignition/deployments
 
 # development deployed contracts
 hardhat/deployed/contracts/*.json
+
+# registered information
+hardhat/registered/schemas/*.json

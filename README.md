@@ -13,6 +13,12 @@ hardhat $ npx hardhat node
 ...
 ```
 
+#### Deploy EAS Contracts (if localhost network)
+
+**Important**: This should be done once per network
+
+TODO: Can I check whether a contract is already deployed?
+
 - On another shell deploy the EAS contracts locally
 
 ```shell
@@ -22,6 +28,18 @@ hardhat $ npx hardhat run scripts/deployEasContracts.ts
 
 This will generate the file `hardhat/deployed/contracts/easContractAddresses.json` with the contract addresses
 for the `EAS` and the `SchemaRegistry` contracts.
+
+#### Register `TalentProtocolPassportSchemaRecord`
+
+**Important**: This should be done once per network
+
+TODO: Can I check whether the schema record is already registered?
+
+From `hardhat` folder:
+
+```shell
+hardhat $ npx hardhat run scripts/registerTalentProtocolPassportSchema.ts
+```
 
 # Frontend
 
