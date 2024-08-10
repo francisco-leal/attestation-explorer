@@ -45,6 +45,11 @@ hardhat $ npx hardhat run scripts/registerTalentProtocolPassportSchema.ts
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Python 3.x
+
+It is a requirement for jest to be installed. You can use `asdf` to install it. See the [.tool-versions](./.tool-versions) for the version
+needed.
+
 ## Getting Started
 
 First, run the development server:
