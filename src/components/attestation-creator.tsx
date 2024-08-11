@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { PassportCredential } from "@/server/talent-protocol";
 import { baseSepolia } from "viem/chains";
 import { Button } from "@mui/joy";
+import { useState } from "react";
 
 function clientToSigner(client: Client<Transport, Chain, Account>) {
   const { account, chain, transport } = client;
@@ -32,8 +33,17 @@ export const AttestationCreator = ({
   credentials: PassportCredential[];
   passportId: number;
 }) => {
+  const [loading, setLoading] = useState(false);
   const signer = useEthersSigner({ chainId: baseSepolia.id });
   if (!signer) return null;
 
-  return <Button onClick={() => console.log("Signer", signer)}>Create</Button>;
+  const createAttestation = async () => {
+    setLoading(true);
+  };
+
+  return (
+    <Button onClick={() => createAttestation()} loading>
+      Create
+    </Button>
+  );
 };
