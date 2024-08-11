@@ -1,5 +1,5 @@
 import { EAS, SchemaRegistry } from "@ethereum-attestation-service/eas-sdk";
-import { ethers } from "hardhat";
+import { config, ethers } from "hardhat";
 import fs from "fs/promises";
 import "../src/environment";
 
@@ -13,14 +13,17 @@ import RegisteredTalentProtocolPassportSchemaRecord from "../src/types/Registere
 import DeployedEasAddresses from "../src/types/DeployedEasAddresses";
 import path from "path";
 
-const url = process.env.DEPLOYMENT_NETWORK || "";
+const url = process.env.DEPLOYMENT_NETWORK_URL || "";
+const networkName = process.env.DEPLOYMENT_NETWORK_NAME || "";
 
-console.debug("url", url);
+console.debug("url", url, "networkName", networkName);
 
 async function writeSchemaRecord(
   name: string,
   schemaRecords: RegisteredTalentProtocolPassportSchemaRecord[]
 ) {
+  // TODO: this should not be overwriting the existing registered schema records.
+
   const schemaRecordStr = JSON.stringify(schemaRecords);
   return await fs.writeFile(
     `${REGISTERED_SCHEMAS_FOLDER}/${name}.json`,
@@ -40,7 +43,7 @@ async function readSchemaAbi(): Promise<string> {
   const data = await fs.readFile(JSON_FILE_WITH_EAS_CONTRACT_ADDRESSES, "utf8");
 
   const EAS_CONTRACT_ADDRESSES = JSON.parse(data).filter(
-    (a: DeployedEasAddresses) => a.url === url
+    (a: DeployedEasAddresses) => a.networkName === networkName
   )[0].addresses;
 
   const schemaRegistryContractAddress = EAS_CONTRACT_ADDRESSES.schemaRegistry;
@@ -56,10 +59,11 @@ async function readSchemaAbi(): Promise<string> {
 
   const eas = new EAS(easContractAddress);
 
-  const provider = new ethers.JsonRpcProvider(url);
+  const provider = ethers.getDefaultProvider();
   console.debug("Provider", provider);
 
-  const signer = await provider.getSigner();
+  const signers = await ethers.getSigners();
+  const signer = signers[0];
 
   console.debug("Connecting to EAS contract");
   eas.connect(signer);
@@ -96,6 +100,7 @@ async function readSchemaAbi(): Promise<string> {
   const registeredTalentProtocolPassportSchemaRecord: RegisteredTalentProtocolPassportSchemaRecord =
     {
       url: url,
+      networkName,
       schemaRecord: {
         uid: schemaRecord.uid,
         resolver: schemaRecord.resolver,
