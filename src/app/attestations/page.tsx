@@ -51,9 +51,7 @@ export default async function AttestationsPage() {
   }
 
   const passportJson = convertPassportToJson(passport, passportCredentials);
-  console.log(passportJson);
   const easData = jsonPassportToEasAttestation(passportJson);
-  console.log(easData);
 
   return (
     <>
@@ -104,7 +102,7 @@ export default async function AttestationsPage() {
             </Grid>
           ))}
         </Grid>
-        <AttestationCreator attestationData={easData} />
+        <AttestationCreator passportId={passport?.passport_id || 0} />
       </Box>
     </>
   );
