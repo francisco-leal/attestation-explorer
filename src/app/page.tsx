@@ -40,9 +40,13 @@ export default async function Home() {
           }}
         >
           <Typography level="h1">Attestation Explorer</Typography>
-          <Typography level="body-md" sx={{ marginBottom: 4 }}>
-            Connect your wallet to explore and create onchain credentials via
-            Talent Passport
+          <Typography
+            level="body-md"
+            sx={{ marginBottom: 4, maxWidth: "600px" }}
+          >
+            Connect your wallet to explore and create w3c verifiable credentials
+            onchain via Talent Passport while leveraging the Ethereum
+            Attestation Service.
           </Typography>
           {user.passportId && (
             <Button component={Link} href="/attestations">
