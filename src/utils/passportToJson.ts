@@ -81,7 +81,7 @@ export const convertPassportToJson = (
       ...credentialJson,
     },
     validFrom: getCurrentDate(),
-    validUntil: get3MonthsFromNow(),
+    validUntil: null,
     status: statusJson,
     credentialSchema: {
       id: "https://passport.talentprotocol.com/schemas/TalentProtocolCredential.json",
