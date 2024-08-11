@@ -20,12 +20,8 @@ const easElement = (
   };
 };
 
-const id = (validPassport: TalentPassport): EasSchemaElement => {
-  return easElement(
-    "id",
-    `https://passport.talentprotocol.com/profile/${validPassport.passport_id}`,
-    "string"
-  );
+const id = (validPassport: any): EasSchemaElement => {
+  return easElement("id", validPassport.id, "string");
 };
 
 const type = (validPassport: any): any => {

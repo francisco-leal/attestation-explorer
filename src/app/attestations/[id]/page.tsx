@@ -1,4 +1,5 @@
 import { Typography, Box, Button } from "@mui/joy";
+import { AttestationDetails } from "@/components/attestation-details";
 
 export default async function AttestationIDPage({
   params,
@@ -6,7 +7,6 @@ export default async function AttestationIDPage({
   params: { id: string };
 }) {
   const attestationId = params.id;
-
   // @TODO show attestation in detail
   return (
     <>
@@ -21,6 +21,7 @@ export default async function AttestationIDPage({
         }}
       >
         <Typography level="title-lg">Attestation Explorer</Typography>
+        <AttestationDetails uid={attestationId} />
         <Button
           href={`https://base-sepolia.easscan.org/attestation/view/${attestationId}`}
           component="a"
