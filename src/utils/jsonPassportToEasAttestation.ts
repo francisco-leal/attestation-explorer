@@ -6,6 +6,8 @@ import {
   PropertyType,
 } from "@/types/eas";
 
+import { TalentPassport, PassportCredential } from "@/server/talent-protocol";
+
 const easElement = (
   name: string,
   value: EasSchemaElementValue,
@@ -16,6 +18,29 @@ const easElement = (
     value,
     type,
   };
+};
+
+const passportName = (validPassport: TalentPassport): string => {
+  return (
+    validPassport.passport_profile?.name ||
+    validPassport.user?.name ||
+    validPassport.user?.display_name ||
+    `passport-${validPassport.passport_id}`
+  );
+};
+
+const passportWallet = (validPassport: TalentPassport): string => {
+  return validPassport.verified_wallets[0];
+};
+
+const getCurrentDate = (): string => {
+  return new Date().toISOString();
+};
+
+const get3MonthsFromNow = (): string => {
+  const date = new Date();
+  date.setMonth(date.getMonth() + 3);
+  return date.toISOString();
 };
 
 const id = (validPassport: any): any => {
