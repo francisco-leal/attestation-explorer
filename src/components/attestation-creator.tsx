@@ -28,11 +28,9 @@ function useEthersSigner({ chainId }: { chainId?: number } = {}) {
 }
 
 export const AttestationCreator = ({
-  credentials,
-  passportId,
+  attestationData,
 }: {
-  credentials: PassportCredential[];
-  passportId: number;
+  attestationData: any;
 }) => {
   const { address } = useAccount();
 
@@ -52,15 +50,7 @@ export const AttestationCreator = ({
       "uint256 weight, uint256 date_of_measurement"
     );
     const date = new Date();
-    const dataToEnconde = [
-      { name: "weight", value: BigInt(0), type: "uint256" },
-      {
-        name: "date_of_measurement",
-        value: BigInt(date.getTime()),
-        type: "uint256",
-      },
-    ];
-    const encodedData = schemaEncoder.encodeData(dataToEnconde);
+    const encodedData = schemaEncoder.encodeData(attestationData);
     const schemaUID =
       "0xc954dc973cc7e7aefbdf245dd90ca2af522d32d487a1fcb8f47200cf61138b82";
 

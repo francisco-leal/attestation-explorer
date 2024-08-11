@@ -104,10 +104,7 @@ export default async function AttestationsPage() {
             </Grid>
           ))}
         </Grid>
-        <AttestationCreator
-          credentials={passportCredentials}
-          passportId={user.passportId}
-        />
+        <AttestationCreator attestationData={easData} />
       </Box>
     </>
   );
