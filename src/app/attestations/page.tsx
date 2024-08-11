@@ -4,8 +4,10 @@ import {
   getCredentialsForPassport,
   getTalentPassport,
 } from "@/server/talent-protocol";
-import { Typography, Button, Card, Grid, Box, Avatar } from "@mui/joy";
+import { Typography, Card, Grid, Box, Avatar, Button } from "@mui/joy";
 import { AttestationCreator } from "@/components/attestation-creator";
+import { convertPassportToJson } from "@/utils/passportToJson";
+import jsonPassportToEasAttestation from "@/utils/jsonPassportToEasAttestation";
 
 export default async function AttestationsPage() {
   const user = await getCurrentUser();
@@ -19,6 +21,39 @@ export default async function AttestationsPage() {
 
   const passport = await getTalentPassport(user.wallet);
   const passportCredentials = await getCredentialsForPassport(user.passportId);
+
+  if (!passport) {
+    return (
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            marginX: "auto",
+            paddingX: { sm: 6, md: 8, lg: 12 },
+            paddingY: 12,
+            gap: 4,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography level="title-lg">
+              You must first create your Talent Passport
+            </Typography>
+            <w3m-button balance={"hide"} />
+          </Box>
+          <Typography level="h3">Your Talent Passport credentials</Typography>
+          <Button href="https://passport.talentprotocol.com">
+            Create Passport
+          </Button>
+        </Box>
+      </>
+    );
+  }
+
+  const passportJson = convertPassportToJson(passport, passportCredentials);
+  console.log(passportJson);
+  const easData = jsonPassportToEasAttestation(passportJson);
+  console.log(easData);
 
   return (
     <>
@@ -69,10 +104,7 @@ export default async function AttestationsPage() {
             </Grid>
           ))}
         </Grid>
-        <AttestationCreator
-          credentials={passportCredentials}
-          passportId={user.passportId}
-        />
+        <AttestationCreator attestationData={easData} />
       </Box>
     </>
   );

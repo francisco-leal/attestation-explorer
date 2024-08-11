@@ -3,11 +3,11 @@ import { BrowserProvider, JsonRpcSigner } from "ethers";
 import type { Account, Chain, Client, Transport } from "viem";
 import { type Config, useConnectorClient, useAccount } from "wagmi";
 import { useMemo } from "react";
-import { PassportCredential } from "@/server/talent-protocol";
 import { baseSepolia } from "viem/chains";
 import { Button } from "@mui/joy";
 import { useState } from "react";
 import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
+import { useRouter } from "next/navigation";
 
 function clientToSigner(client: Client<Transport, Chain, Account>) {
   const { account, chain, transport } = client;
@@ -28,15 +28,14 @@ function useEthersSigner({ chainId }: { chainId?: number } = {}) {
 }
 
 export const AttestationCreator = ({
-  credentials,
-  passportId,
+  attestationData,
 }: {
-  credentials: PassportCredential[];
-  passportId: number;
+  attestationData: any;
 }) => {
   const { address } = useAccount();
-
   const [loading, setLoading] = useState(false);
+  const [uuid, setUuid] = useState<string | null>(null);
+  const router = useRouter();
   const signer = useEthersSigner({ chainId: baseSepolia.id });
   if (!signer) return null;
 
@@ -51,16 +50,8 @@ export const AttestationCreator = ({
     const schemaEncoder = new SchemaEncoder(
       "uint256 weight, uint256 date_of_measurement"
     );
-    const date = new Date();
-    const dataToEnconde = [
-      { name: "weight", value: BigInt(0), type: "uint256" },
-      {
-        name: "date_of_measurement",
-        value: BigInt(date.getTime()),
-        type: "uint256",
-      },
-    ];
-    const encodedData = schemaEncoder.encodeData(dataToEnconde);
+
+    const encodedData = schemaEncoder.encodeData(attestationData);
     const schemaUID =
       "0xc954dc973cc7e7aefbdf245dd90ca2af522d32d487a1fcb8f47200cf61138b82";
 
@@ -78,8 +69,10 @@ export const AttestationCreator = ({
 
     console.log("New attestation UID:", newAttestationUID);
 
+    setUuid(newAttestationUID);
     alert(`Attestation created! 🎉 ${newAttestationUID}`);
 
+    router.push(`/attestations/${newAttestationUID}`);
     setLoading(false);
   };
 
