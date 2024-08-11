@@ -3,11 +3,11 @@ import { unstable_cache } from "next/cache";
 import { CacheKey, CACHE_5_MINUTES } from "@/utils/cache";
 
 type PassportResponse = {
-  passport: PassportResult;
+  passport: TalentPassport;
   error?: string;
 };
 
-export type PassportResult = {
+export type TalentPassport = {
   score: number;
   passport_id: number;
   verified: boolean;
@@ -36,6 +36,9 @@ export type PassportCredential = {
   score: number;
   type: string;
   value: string;
+  category: string;
+  earned_at: string | null;
+  onchain_at: string | null;
 };
 
 export const getTalentPassport = (wallet: string) => {
