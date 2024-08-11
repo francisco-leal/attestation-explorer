@@ -5,6 +5,7 @@ import {
   getTalentPassport,
 } from "@/server/talent-protocol";
 import { Typography, Button, Card, Grid, Box, Avatar } from "@mui/joy";
+import { AttestationCreator } from "@/components/attestation-creator";
 
 export default async function AttestationsPage() {
   const user = await getCurrentUser();
@@ -68,7 +69,10 @@ export default async function AttestationsPage() {
             </Grid>
           ))}
         </Grid>
-        <Button>Generate Attestation</Button>
+        <AttestationCreator
+          credentials={passportCredentials}
+          passportId={user.passportId}
+        />
       </Box>
     </>
   );

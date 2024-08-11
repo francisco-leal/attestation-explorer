@@ -25,15 +25,17 @@ export type PassportResult = {
 };
 
 export type PassportCredentials = {
-  passport_credentials: {
-    id: string;
-    last_calculated_at: string;
-    max_score: number;
-    name: string;
-    score: number;
-    type: string;
-    value: string;
-  }[];
+  passport_credentials: PassportCredential[];
+};
+
+export type PassportCredential = {
+  id: string;
+  last_calculated_at: string;
+  max_score: number;
+  name: string;
+  score: number;
+  type: string;
+  value: string;
 };
 
 export const getTalentPassport = (wallet: string) => {

@@ -3,6 +3,9 @@ import { BrowserProvider, JsonRpcSigner } from "ethers";
 import type { Account, Chain, Client, Transport } from "viem";
 import { type Config, useConnectorClient } from "wagmi";
 import { useMemo } from "react";
+import { PassportCredential } from "@/server/talent-protocol";
+import { baseSepolia } from "viem/chains";
+import { Button } from "@mui/joy";
 
 function clientToSigner(client: Client<Transport, Chain, Account>) {
   const { account, chain, transport } = client;
@@ -22,4 +25,15 @@ function useEthersSigner({ chainId }: { chainId?: number } = {}) {
   return useMemo(() => (client ? clientToSigner(client) : undefined), [client]);
 }
 
-export const AttestationCreator = () => {};
+export const AttestationCreator = ({
+  credentials,
+  passportId,
+}: {
+  credentials: PassportCredential[];
+  passportId: number;
+}) => {
+  const signer = useEthersSigner({ chainId: baseSepolia.id });
+  if (!signer) return null;
+
+  return <Button onClick={() => console.log("Signer", signer)}>Create</Button>;
+};
