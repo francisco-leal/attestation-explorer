@@ -5,9 +5,10 @@ import { JsonRpcSigner } from "ethers";
 import { JSON_FILE_WITH_EAS_CONTRACT_ADDRESSES } from "../src/constants";
 import "../src/environment";
 
-const url = process.env.DEPLOYMENT_NETWORK;
+const url = process.env.DEPLOYMENT_NETWORK_URL;
+const networkName = process.env.DEPLOYMENT_NETWORK_NAME;
 
-console.debug("url", url);
+console.debug("url", url, "networkName", networkName);
 
 async function deploySchemaRegistryContract(
   signer: JsonRpcSigner
@@ -63,10 +64,12 @@ async function main() {
   const deploymentInfo = [
     {
       url,
+      networkName,
       addresses: easContractAddress,
     },
   ];
 
+  // TODO: this should not be overwriting existing entries
   await fs.writeFile(
     JSON_FILE_WITH_EAS_CONTRACT_ADDRESSES,
     JSON.stringify(deploymentInfo)
