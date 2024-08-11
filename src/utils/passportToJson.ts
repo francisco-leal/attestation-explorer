@@ -17,12 +17,6 @@ const getCurrentDate = (): string => {
   return new Date().toISOString();
 };
 
-const get3MonthsFromNow = (): string => {
-  const date = new Date();
-  date.setMonth(date.getMonth() + 3);
-  return date.toISOString();
-};
-
 const getCredentialSubjectURL = (passport: TalentPassport): string => {
   const wallet = passportWallet(passport);
   if (!wallet) {
@@ -42,10 +36,10 @@ export const convertPassportToJson = (
         id: `https://passport.talentprotocol.com/credentials/${credential.id}`,
         name: credential.name,
         category: credential.category,
-        validFrom: credential.earned_at,
+        validFrom: credential.earned_at || getCurrentDate(),
         validUntil: null,
         score: credential.score,
-        data: credential.value,
+        data: credential.value.toString(),
       },
     };
   }, {});

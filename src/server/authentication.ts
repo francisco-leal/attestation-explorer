@@ -50,8 +50,6 @@ export const connectUser = async ({
     },
   };
 
-  console.log(sessionUser);
-
   const encryptedSession = await sealData(JSON.stringify(sessionUser), {
     password: sessionPassword,
   });

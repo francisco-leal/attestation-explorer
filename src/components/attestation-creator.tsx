@@ -6,7 +6,6 @@ import { useMemo } from "react";
 import { baseSepolia } from "viem/chains";
 import { Button } from "@mui/joy";
 import { useState } from "react";
-import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
 import { useRouter } from "next/navigation";
 
 function clientToSigner(client: Client<Transport, Chain, Account>) {
@@ -22,57 +21,27 @@ function clientToSigner(client: Client<Transport, Chain, Account>) {
 }
 
 /** Hook to convert a viem Wallet Client to an ethers.js Signer. */
-function useEthersSigner({ chainId }: { chainId?: number } = {}) {
+export function useEthersSigner({ chainId }: { chainId?: number } = {}) {
   const { data: client } = useConnectorClient<Config>({ chainId });
   return useMemo(() => (client ? clientToSigner(client) : undefined), [client]);
 }
 
-export const AttestationCreator = ({
-  attestationData,
-}: {
-  attestationData: any;
-}) => {
-  const { address } = useAccount();
+export const AttestationCreator = ({ passportId }: { passportId: number }) => {
   const [loading, setLoading] = useState(false);
-  const [uuid, setUuid] = useState<string | null>(null);
   const router = useRouter();
   const signer = useEthersSigner({ chainId: baseSepolia.id });
   if (!signer) return null;
 
   const createAttestation = async () => {
     setLoading(true);
-    if (!signer) return;
-    if (!address) return;
-    const eas = new EAS("0x4200000000000000000000000000000000000021");
-    eas.connect(signer);
-
-    // replace this with the schema for the passport
-    const schemaEncoder = new SchemaEncoder(
-      "uint256 weight, uint256 date_of_measurement"
-    );
-
-    const encodedData = schemaEncoder.encodeData(attestationData);
-    const schemaUID =
-      "0xc954dc973cc7e7aefbdf245dd90ca2af522d32d487a1fcb8f47200cf61138b82";
-
-    const tx = await eas.attest({
-      schema: schemaUID,
-      data: {
-        recipient: address,
-        expirationTime: BigInt(0),
-        revocable: true,
-        data: encodedData,
-      },
+    const response = await fetch("/api/attestation", {
+      method: "POST",
+      body: JSON.stringify({ passport_id: passportId }),
     });
 
-    const newAttestationUID = await tx.wait();
+    const { uid } = await response.json();
 
-    console.log("New attestation UID:", newAttestationUID);
-
-    setUuid(newAttestationUID);
-    alert(`Attestation created! 🎉 ${newAttestationUID}`);
-
-    router.push(`/attestations/${newAttestationUID}`);
+    router.push(`/attestations/${uid}`);
     setLoading(false);
   };
 
