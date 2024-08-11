@@ -5,7 +5,10 @@ import Link from "next/link";
 
 export default async function Home() {
   const user = await getCurrentUser();
-  if (!user) return <UserNotConnected />;
+
+  if (!user) {
+    return <UserNotConnected />;
+  }
 
   return (
     <>
@@ -13,25 +16,50 @@ export default async function Home() {
         sx={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "justify-center",
           alignItems: "center",
           gap: 2,
           width: "100%",
-          paddingX: 2,
+          minHeight: "100vh",
+          paddingX: { sm: 6, md: 4, lg: 4 },
+          paddingY: { sm: 12, md: 8, lg: 8 },
         }}
       >
-        <Typography level="h3">Attestation Explorer</Typography>
-        <w3m-button balance={"hide"} />
+        <Box
+          sx={{
+            marginX: "auto",
+            maxWidth: {
+              sm: "auto",
+              md: "100%",
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              alignItems: "center",
+            },
+          }}
+        >
+          <Typography level="h1">Attestation Explorer</Typography>
+          <Typography level="body-md" sx={{ marginBottom: 4 }}>
+            Connect your wallet to explore and create onchain credentials via
+            Talent Passport
+          </Typography>
+          {user.passportId && (
+            <Button component={Link} href="/attestations">
+              Generate attestation
+            </Button>
+          )}
+          {!user.passportId && (
+            <Button
+              component="a"
+              href="https://passport.talentprotocol.com"
+              target="_blank"
+            >
+              Create Passport
+            </Button>
+          )}
+        </Box>
       </Box>
-      <Typography level="body-md">
-        Welcome {user.profile.name || user.wallet}
-      </Typography>
-      <Button component={Link} href="/attestations">
-        Create
-      </Button>
-      <Button component={Link} href="/search">
-        Search
-      </Button>
     </>
   );
 }
